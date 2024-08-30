@@ -9,7 +9,7 @@ Sensing=lite-v0.2.0
 MQTTBroker=v1
 
 # Data storage
-Timeseries=v1
+InfluxDB=v1
 
 # Dashboard
 Grafana=v1
