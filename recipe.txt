@@ -1,0 +1,15 @@
+# Shoestring Infrastructure
+Docker=v1
+SetupLogging=v1
+
+# Data collection
+Sensing=lite-v0.1.0
+
+# Data transfer
+MQTTBroker=v1
+
+# Data storage
+Timeseries=v1
+
+# Dashboard
+Grafana=v1
