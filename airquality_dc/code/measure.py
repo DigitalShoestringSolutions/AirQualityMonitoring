@@ -115,7 +115,7 @@ class AirQualityMeasureBuildingBlock(multiprocessing.Process):
             timestamp = datetime.datetime.now(tz=tz).isoformat()
 
             # convert
-            results = {"TVOC": str(sample.tvoc), "CO2": str(sample.ppm), "AQI": str(sample.aqi)}
+            results = {"TVOC": sample.tvoc, "CO2": sample.ppm, "AQI": sample.aqi}
             payload = {**results, **self.constants, "timestamp": timestamp}
 
                 # send
