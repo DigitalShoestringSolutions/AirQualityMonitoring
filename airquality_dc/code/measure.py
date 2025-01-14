@@ -95,10 +95,12 @@ class AirQualityMeasureBuildingBlock(multiprocessing.Process):
             t += period
 
             # Collect samples from ADC
+            sample = None                # discard old sample in case below fails
             try:
                 sample = adc.sample()
             except Exception as e:
                 logger.error(f"Sampling lead to exception{e}")
+                raise e                  # -> restart container. If not, would happen in L120 anyway.
 
             # handle timestamps and timezones
             if time.time() > next_check:
