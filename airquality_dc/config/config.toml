@@ -6,8 +6,7 @@
     adc_module = "ens160"
 
 [sampling]
-    sample_count = 5
-    sample_interval = 0.2
+    sample_interval = 1
 
 [computing]
 	hardware="Pi4"
