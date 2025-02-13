@@ -24,9 +24,9 @@ import logging
 from ctypes import *
 
 
-logger = logging.getLogger()
-# logger.setLevel(logging.INFO)   # Display all print information
-logger.setLevel(logging.FATAL)   # If you don’t want to display too many prints, only print errors, please use this option
+logger = logging.getLogger(__name__) # apply logger settings to this file only
+# logger.setLevel(logging.INFO)      # Display all print information
+logger.setLevel(logging.FATAL)       # If you don’t want to display too many prints, only print fatal errors, please use this option
 ph = logging.StreamHandler()
 formatter = logging.Formatter("%(asctime)s - [%(filename)s %(funcName)s]:%(lineno)d - %(levelname)s: %(message)s")
 ph.setFormatter(formatter) 

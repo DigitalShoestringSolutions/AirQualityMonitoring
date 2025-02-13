@@ -60,7 +60,7 @@ services:
         logging:
             driver: syslog
             options:
-                tag: docker-current-dc
+                tag: docker-airquality-dc
         restart: unless-stopped
         depends_on:
             - "mqtt_broker"
