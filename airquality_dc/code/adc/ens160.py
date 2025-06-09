@@ -76,7 +76,7 @@ class ADC:
     def sample(self):
         data = Data()
         data.tvoc = self.adc.get_TVOC_ppb
-        data.ppm = self.adc.get_ECO2_ppm
+        data.eco2 = self.adc.get_ECO2_ppm
         data.aqi = self.adc.get_AQI
         return data
 
