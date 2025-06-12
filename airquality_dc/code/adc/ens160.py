@@ -74,6 +74,7 @@ class ADC:
         logger.info("ens160 sensor initialize successfully!!!")
 
     def sample(self):
+        self.adc.set_PWR_mode(sensor.ENS160_STANDARD_MODE) # resend power mode every sample in case of sensor reset
         data = Data()
         data.tvoc = self.adc.get_TVOC_ppb
         data.eco2 = self.adc.get_ECO2_ppm
