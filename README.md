@@ -1,13 +1,13 @@
 # Air Quality Monitoring Starter Solution
 
 ### Download
-- Clone this repo `git clone https://github.com/DigitalShoestringSolutions/AirQualityMonitoring`
+- Clone this repo `git clone https://github.com/DigitalShoestringSolutions/AirQualityMonitoring -b feature/recipe`
 - Open the downloaded folder `cd AirQualityMonitoring`
 
 ### Configure & Assemble
-- Edit the config file to set machine name `nano UserConfig/Sensing/main.py`
-- Check the recipe contains the Service Modules you desire `nano recipe.txt`
-- Assemble the Service Modules `ServiceModules/Asssembly/get_service_modules.sh`
+- Edit the config file to set machine name `nano Config/Sensing/main.py`
+- Check the recipe contains the Modules you desire `nano recipe.txt`
+- Assemble the Service Modules `SModules/Asssembly/get_modules.sh`
 - Restart to apply the settings to the downloaded Service Modules
 
 ### Build & Run
