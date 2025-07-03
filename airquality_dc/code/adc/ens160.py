@@ -49,6 +49,8 @@ class ADC:
                 logger.error(f"Unable to import module DFRobot_ENS160_ROCK. Stopping!!")
                 return
             self.adc = sensor.DFRobot_ENS160_I2C(i2c_addr = 0x53, bus = 7)
+
+        self.sensor = sensor # keep whole module available for later
         
              
         while (self.adc.begin() == False):
@@ -74,6 +76,7 @@ class ADC:
         logger.info("ens160 sensor initialize successfully!!!")
 
     def sample(self):
+        self.adc.set_PWR_mode(self.sensor.ENS160_STANDARD_MODE) # resend power mode every sample in case of sensor reset
         data = Data()
         data.tvoc = self.adc.get_TVOC_ppb
         data.eco2 = self.adc.get_ECO2_ppm
