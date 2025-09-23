@@ -11,7 +11,7 @@
     module="gas_ens160"     # device_modules / file name
     class="ENS160"
     interface="i2c0"
-
+[device.air_quality_sensor.variables] # Empty section required, else "'variables' is a required property"
 
 #=-= Define Calculation Modules =-=
 [calculation.machine_name]
