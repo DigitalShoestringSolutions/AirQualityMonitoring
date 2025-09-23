@@ -45,7 +45,7 @@
 
 #=-= Define Output Specification =-=
 [output.overall]
-    topic = "temperature_monitoring/{{machine}}"
+    topic = "airquality_monitoring/{{machine}}"
 [output.overall.message_spec]
     timestamp = '$.timestamp'
     eCO2 = "$.eCO2"               # What's with the $ ? Wasn't needed when specifying variables off the blackboard before
