@@ -1,0 +1,72 @@
+Different solution-specific presets for turning the sensing source into ready to fine tune service module go here.
+One such file will be selected by user config (via prompts).
+
+
+#=-= Define Interface Modules =-=
+[interface.i2c0]
+    module="i2c"
+    class="I2C"
+[interface.i2c0.config]
+    bus=1
+
+
+#=-= Define Device Modules =-=
+[device.air_quality_sensor]
+    module="gas_ens160"     # device_modules / file name
+    class="ENS160"
+    interface="i2c0"
+
+
+#=-= Define Calculation Modules =-=
+[calculation.machine_name]
+    module="gen_constants"
+    class="ConstantSet"                  # Is all this required just to tag the data with the machine name?
+[calculation.machine_name.config]
+    machine = "Machine_1"                # Default unless overwritten in user config (which it always will be?)
+
+
+#=-= Define Calculation Pipelines =-=
+[pipelines]
+    pipeline = ["machine_name"]
+
+
+#=-= Define Measurements Pipelines =-=
+[measurement]
+    module="gen_sample"
+    class="MultiSampleMergedAvg"
+    # This sensor returns multiple numeric properties. Each metric could be averaged over time. 
+    # Where are the docstrings that distinguish between the use cases for SingleSample, SingleSampleAvg, MultiSampleMerged, MultiSampleMergedAvg, MultiSampleIndividual, MultiSampleIndividualAvg?
+    # Those names alone really don't make it clear.
+[measurement.config]
+    period = 1.0 # seconds
+    n_samples = 5
+[[measurement.sensing_stacks]]
+    device = "air_quality_sensor"
+    pipeline = "pipeline"              # Why is this in quotes? It's not in quotes when defined above
+
+
+#=-= Define Output Specification =-=
+[output.overall]
+    topic = "temperature_monitoring/{{machine}}"
+[output.overall.message_spec]
+    timestamp = '$.timestamp'
+    eCO2 = "$.eCO2"               # What's with the $ ? Wasn't needed when specifying variables off the blackboard before
+    TVOC = "$.TVOC"               # Does every variable have to be written out, even when the names are not changed?
+    AQI = "$.eAQI"
+    machine="$.machine"
+
+
+[mqtt]
+    broker = "mqtt.docker.local"
+    port = 1883   #common mqtt ports are 1883 and 8883
+    topic_prefix = ""
+
+    #reconnection characteristics
+    # start: timeout = initial,
+    # if timeout < limit then
+    #   timeout = timeout*backoff
+    # else
+    #   timeout = limit
+    reconnect.initial = 5 # seconds
+    reconnect.backoff = 2 # multiplier
+    reconnect.limit = 60 # seconds

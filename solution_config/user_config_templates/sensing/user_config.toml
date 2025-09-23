@@ -1,5 +1,5 @@
 # select a config file appropriate for your hardware and wiring setup
-module_config_file = "./module_config/{{module_config_file}}"
+module_config_file = "./module_config/aqm_ens160.toml"
 
 
 #   Set the machine name
