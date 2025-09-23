@@ -3,21 +3,16 @@ recipe_vsn = "1.0.0"
 
 # About the solution as a whole
 [solution]
-    name = "Power Monitoring"
-    slug = "power_monitoring"
-    version = "2.0.0"
-    description = "Shoestring Power Monitoring Starter Solution"
+    name = "Air Quality Monitoring"
+    slug = "air_quality_monitoring"
+    version = "3.0.0"
+    description = "Shoestring Air Quality Monitoring Starter Solution"
 
 # Service module instances present in this solution
-[service_module.current-sensing-1]
+[service_module.sensing-1]
     source="sensing"
     containers = ["sensing"]
-    template.log_level = "warning"
-
-[service_module.current-sensing-2]
-    source="sensing"
-    containers = ["sensing"]
-    template.log_level = "warning"
+    template.log_level = "info"
 
 [service_module.data-storage]
     source = "data_storage"
