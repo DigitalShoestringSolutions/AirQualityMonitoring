@@ -1,7 +1,3 @@
-Different solution-specific presets for turning the sensing source into ready to fine tune service module go here.
-One such file will be selected by user config (via prompts).
-
-
 #=-= Define Interface Modules =-=
 [interface.i2c0]
     module="i2c"
