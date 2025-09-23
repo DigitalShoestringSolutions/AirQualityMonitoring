@@ -19,6 +19,7 @@
     class="ConstantSet"                  # Is all this required just to tag the data with the machine name?
 [calculation.machine_name.config]
     machine = "Machine_1"                # Default unless overwritten in user config (which it always will be?)
+[calculation.machine_name.variables]     # This is still required, even if there are no variables. 
 
 
 #=-= Define Calculation Pipelines =-=
