@@ -16,4 +16,4 @@ Continue accepting the prompts to build and start now
 
 ## Usage
 View Grafana dashboards in a web browser: `localhost:3000`  
-_Screenshot of dashboard goes here_
+<img width="1914" height="851" alt="image" src="https://github.com/user-attachments/assets/e2bf4c5b-d974-4c47-b27f-186cf17103e1" />
