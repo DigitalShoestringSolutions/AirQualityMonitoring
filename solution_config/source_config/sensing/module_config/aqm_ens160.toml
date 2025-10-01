@@ -11,8 +11,7 @@
     module="gas_ens160"     # device_modules / file name
     class="ENS160"
     interface="i2c0"
-[device.air_quality_sensor.config]    # Empty section required, else "config.get: 'NoneType' object has no attribute 'get'"
-[device.air_quality_sensor.variables] # Empty section required, else "'variables' is a required property"
+
 
 #=-= Define Calculation Modules =-=
 [calculation.machine_name]
@@ -20,7 +19,6 @@
     class="ConstantSet"                  # Is all this required just to tag the data with the machine name?
 [calculation.machine_name.config]
     machine = "Machine_1"                # Default unless overwritten in user config (which it always will be?)
-[calculation.machine_name.variables]     # This is still required, even if there are no variables. 
 
 
 #=-= Define Calculation Pipelines =-=
@@ -57,14 +55,3 @@
 [mqtt]
     broker = "mqtt.docker.local"
     port = 1883   #common mqtt ports are 1883 and 8883
-    topic_prefix = ""
-
-    #reconnection characteristics
-    # start: timeout = initial,
-    # if timeout < limit then
-    #   timeout = timeout*backoff
-    # else
-    #   timeout = limit
-    reconnect.initial = 5 # seconds
-    reconnect.backoff = 2 # multiplier
-    reconnect.limit = 60 # seconds
