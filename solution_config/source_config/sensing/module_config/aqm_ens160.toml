@@ -1,0 +1,57 @@
+#=-= Define Interface Modules =-=
+[interface.i2c0]
+    module="i2c"
+    class="I2C"
+[interface.i2c0.config]
+    bus=1
+
+
+#=-= Define Device Modules =-=
+[device.air_quality_sensor]
+    module="gas_ens160"                    # device_modules / file name
+    class="ENS160"
+    interface="i2c0"
+[device.air_quality_sensor.variables]      # This section is required by schema.
+    eCO2_var = "eCO2"                      # Although the values here are the same as the defaults,
+    TVOC_var = "TVOC"                      # explicitly showing them makes clear the connection with [output.overall.message_spec]
+    AQI_var = "AQI"
+
+#=-= Define Calculation Modules =-=
+[calculation.machine_name]
+    module="gen_constants"
+    class="ConstantSet"
+[calculation.machine_name.config]
+    machine = "overwritten_by_user_config"
+[calculation.machine_name.variables]       # although empty, this section is required by schema
+
+#=-= Define Calculation Pipelines =-=
+[pipelines]
+    pipeline = ["machine_name"]
+
+
+#=-= Define Measurements Pipelines =-=
+[measurement]
+    module="gen_sample"
+    class="SingleSampleAvg"
+[measurement.config]
+    period = 1.0 # seconds
+    n_samples = 5
+[[measurement.sensing_stacks]]
+    device = "air_quality_sensor"
+    pipeline = "pipeline"
+
+
+#=-= Define Output Specification =-=
+[output.overall]
+    topic = "airquality_monitoring/{{machine}}"
+[output.overall.message_spec]
+    timestamp = '$.timestamp'
+    eCO2 = "$.eCO2"
+    TVOC = "$.TVOC"
+    AQI = "$.AQI"
+    machine="$.machine"
+
+
+[mqtt]
+    broker = "mqtt.docker.local"
+    port = 1883   # common mqtt ports are 1883 and 8883

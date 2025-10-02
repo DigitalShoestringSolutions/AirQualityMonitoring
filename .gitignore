@@ -1,5 +1,11 @@
-**/__pycache__/*
-**/data/*
-!**/.gitkeep
-start_local.sh
+# Compiled and metadata file types
+__pycache__/
 *.DS_Store
+
+# Explicit exclusions
+data/**
+assembled/**
+console_log.html
+
+# Explicit inclusions
+!**/.gitkeep
