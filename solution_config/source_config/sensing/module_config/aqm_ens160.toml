@@ -8,18 +8,21 @@
 
 #=-= Define Device Modules =-=
 [device.air_quality_sensor]
-    module="gas_ens160"     # device_modules / file name
+    module="gas_ens160"                    # device_modules / file name
     class="ENS160"
     interface="i2c0"
-
+[device.air_quality_sensor.variables]      # This section is required by schema.
+    eCO2_var = "eCO2"                      # Although the values here are the same as the defaults,
+    TVOC_var = "TVOC"                      # explicitly showing them makes clear the connection with [output.overall.message_spec]
+    AQI_var = "AQI"
 
 #=-= Define Calculation Modules =-=
 [calculation.machine_name]
     module="gen_constants"
-    class="ConstantSet"                  # Is all this required just to tag the data with the machine name?
+    class="ConstantSet"
 [calculation.machine_name.config]
-    machine = "Machine_1"                # Default unless overwritten in user config (which it always will be?)
-
+    machine = "overwritten_by_user_config"
+[calculation.machine_name.variables]       # although empty, this section is required by schema
 
 #=-= Define Calculation Pipelines =-=
 [pipelines]
@@ -29,16 +32,13 @@
 #=-= Define Measurements Pipelines =-=
 [measurement]
     module="gen_sample"
-    class="MultiSampleMergedAvg"
-    # This sensor returns multiple numeric properties. Each metric could be averaged over time. 
-    # Where are the docstrings that distinguish between the use cases for SingleSample, SingleSampleAvg, MultiSampleMerged, MultiSampleMergedAvg, MultiSampleIndividual, MultiSampleIndividualAvg?
-    # Those names alone really don't make it clear.
+    class="SingleSampleAvg"
 [measurement.config]
     period = 1.0 # seconds
     n_samples = 5
 [[measurement.sensing_stacks]]
     device = "air_quality_sensor"
-    pipeline = "pipeline"              # Why is this in quotes? It's not in quotes when defined above
+    pipeline = "pipeline"
 
 
 #=-= Define Output Specification =-=
@@ -46,12 +46,12 @@
     topic = "airquality_monitoring/{{machine}}"
 [output.overall.message_spec]
     timestamp = '$.timestamp'
-    eCO2 = "$.eCO2"               # What's with the $ ? Wasn't needed when specifying variables off the blackboard before
-    TVOC = "$.TVOC"               # Does every variable have to be written out, even when the names are not changed?
+    eCO2 = "$.eCO2"
+    TVOC = "$.TVOC"
     AQI = "$.AQI"
     machine="$.machine"
 
 
 [mqtt]
     broker = "mqtt.docker.local"
-    port = 1883   #common mqtt ports are 1883 and 8883
+    port = 1883   # common mqtt ports are 1883 and 8883
